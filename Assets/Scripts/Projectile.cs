@@ -15,7 +15,6 @@ public class Projectile : MonoBehaviour
     {
         boxCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        speed = 10;
     }
 
     private void Update()

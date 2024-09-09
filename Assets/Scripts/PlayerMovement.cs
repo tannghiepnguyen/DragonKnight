@@ -9,9 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask wallLayer;
     private float wallJumpColldown;
     [SerializeField]
-    private float speed = 10;
+    private float speed;
     [SerializeField]
-    private float jumpPower = 10;
+    private float jumpPower;
     private Rigidbody2D body;
     private Animator animator;
     private BoxCollider2D boxCollider;
