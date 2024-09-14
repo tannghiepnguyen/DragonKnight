@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -43,7 +44,7 @@ public class Health : MonoBehaviour
         {
             if (!dead)
             {
-                animator.SetTrigger("die");
+
 
                 //Player
                 if (GetComponent<PlayerMovement>() != null)
@@ -62,6 +63,7 @@ public class Health : MonoBehaviour
                     GetComponent<MeleeEnemy>().enabled = false;
                 }
 
+                animator.SetTrigger("die");
 
                 dead = true;
                 SoundManager.instance.PlaySound(deathSound);
@@ -73,15 +75,27 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TakeDamage(1);
-        }
+
     }
 
     public void AddHealth(float _value)
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth + _value, 0, startingHealth);
+    }
+
+    public void Respawn()
+    {
+        dead = false;
+        AddHealth(startingHealth);
+        animator.ResetTrigger("die");
+        animator.Play("Idle");
+        StartCoroutine(Invulnerability());
+
+        //Player
+        if (GetComponent<PlayerMovement>() != null)
+        {
+            GetComponent<PlayerMovement>().enabled = true;
+        }
     }
 
     private IEnumerator Invulnerability()
