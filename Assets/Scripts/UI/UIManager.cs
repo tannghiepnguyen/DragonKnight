@@ -8,11 +8,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AudioClip gameOverSound;
     [Header("Pause")]
     [SerializeField] private GameObject pauseScreen;
+    [Header("Win")]
+    [SerializeField] private GameObject winScreen;
 
     private void Awake()
     {
         gameOverScreen.SetActive(false);
         pauseScreen.SetActive(false);
+        winScreen.SetActive(false);
+    }
+
+    public void Win()
+    {
+        winScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
     private void Update()
@@ -40,6 +49,12 @@ public class UIManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
 
     public void Quit()
