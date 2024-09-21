@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         pauseScreen.SetActive(false);
         winScreen.SetActive(false);
+
     }
 
     public void Win()
@@ -28,14 +29,18 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (pauseScreen.activeInHierarchy)
-            {
-                pauseGame(false);
-            }
-            else
-            {
-                pauseGame(true);
-            }
+            CheckIfMenuOpened();
+        }
+    }
+    void CheckIfMenuOpened()
+    {
+        if (pauseScreen.activeInHierarchy)
+        {
+            pauseGame(false);
+        }
+        else
+        {
+            pauseGame(true);
         }
     }
 

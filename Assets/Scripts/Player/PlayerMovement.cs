@@ -4,21 +4,24 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask groundLayer;
+    public LayerMask groundLayer;
     [SerializeField]
     private LayerMask wallLayer;
     private float wallJumpColldown;
     [SerializeField]
     private float speed;
     [SerializeField]
-    private float jumpPower;
+    public float jumpPower;
     private Rigidbody2D body;
     private Animator animator;
     private BoxCollider2D boxCollider;
     private float horizontalInput;
 
     [Header("SFX")]
-    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] public AudioClip jumpSound;
+
+    private PlayerControl control;
+    Vector2 move;
 
     private void Awake()
     {
@@ -26,11 +29,20 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        control = new PlayerControl();
+        control.Gameplay.Move.performed += x => move = x.ReadValue<Vector2>();
+        control.Gameplay.Move.canceled += x => move = Vector2.zero;
+        control.Gameplay.Jump.performed += x => Jump();
+        control.Gameplay.Attack.canceled += x => move = Vector2.zero;
+        //control.Gameplay.Menu.performed += x => Grow();
     }
 
     private void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
+
+        Vector2 m = new Vector2(move.x, move.y) * Time.deltaTime;
+        transform.Translate(m, Space.World);
 
 
         //flip player when move
@@ -113,5 +125,17 @@ public class PlayerMovement : MonoBehaviour
     public bool canAttack()
     {
         return horizontalInput == 0 && isGrounded() && !onWall();
+    }
+    private void OnEnable()
+    {
+        control.Gameplay.Enable();
+    }
+    private void OnDisable()
+    {
+        control.Gameplay.Disable();
+    }
+    void Grow()
+    {
+        transform.localScale *= 1.1f;
     }
 }

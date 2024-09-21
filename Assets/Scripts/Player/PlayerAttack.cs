@@ -13,11 +13,14 @@ public class PlayerAttack : MonoBehaviour
     private PlayerMovement playerMovement;
     private float cooldownTimer = Mathf.Infinity;
     [SerializeField] private AudioClip fireballSound;
+    private PlayerControl control;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
+        control = new PlayerControl();
+        control.Gameplay.Attack.performed += x => ControllerAttack();
     }
 
     private void Update()
@@ -27,6 +30,10 @@ public class PlayerAttack : MonoBehaviour
             Attack();
         }
         cooldownTimer += Time.deltaTime;
+    }
+    private void ControllerAttack() 
+    {
+        if (playerMovement.canAttack()) Attack();
     }
 
     private void Attack()
@@ -51,5 +58,13 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         return 0;
+    }
+    private void OnEnable()
+    {
+        control.Gameplay.Enable();
+    }
+    private void OnDisable()
+    {
+        control.Gameplay.Disable();
     }
 }
