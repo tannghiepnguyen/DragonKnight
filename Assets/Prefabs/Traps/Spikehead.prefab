@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8652532471470589284}
   m_Layer: 8
   m_Name: Spikehead
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   speed: 1
-  range: 10
+  range: 20
   checkDelay: 1
   playerLayer:
     serializedVersion: 2
