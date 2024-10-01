@@ -8,8 +8,10 @@ using UnityEngine.UI;
 
 public class GameOverQuestionManager : MonoBehaviour
 {
-    
-    public TextMeshProUGUI questionUI;
+
+    public GameObject questionUIObject;
+    public UIManager uIManager;
+    public TextMeshProUGUI mainQuestion;
     public GameOverQuestionLib questionLibrary;
     public GameObject questionSlotPrefab;
     public Transform answerContainer;
@@ -22,7 +24,7 @@ public class GameOverQuestionManager : MonoBehaviour
     void Start()
     {
         selectedQuestion = questionLibrary.questionDatas[Random.Range(0, questionLibrary.questionDatas.Length)];
-        questionUI.SetText(selectedQuestion.question);
+        mainQuestion.SetText(selectedQuestion.question);
 
         foreach (var answer in selectedQuestion.answers){
             GameObject instance = Instantiate(questionSlotPrefab);
@@ -41,7 +43,9 @@ public class GameOverQuestionManager : MonoBehaviour
 
     void OnAnswerSelected(GameObject answer){
         bool isCorrect = answer.GetComponent<GameOverQuestionSlot>().isCorrect;
-        if (isCorrect){
+        if (!isCorrect){
+            questionUIObject.SetActive(false);
+            uIManager.GameOver();
             
         }
     }

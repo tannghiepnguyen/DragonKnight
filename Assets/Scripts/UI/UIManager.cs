@@ -11,9 +11,11 @@ public class UIManager : MonoBehaviour
     [Header("Win")]
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject timer;
-
+    [SerializeField] private GameObject GameOverQuestionUI;
     [SerializeField] private int currentLevel;
     [SerializeField] private GameObject startScreen;
+
+    private bool reviveQuestionUsed = false;
 
     private void Awake()
     {
@@ -31,6 +33,7 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1;
         startScreen.SetActive(false);
+        reviveQuestionUsed= false;
     }
 
     public void Win()
@@ -55,16 +58,27 @@ public class UIManager : MonoBehaviour
     }
 
     #region Game Over
-    public void GameOver()
+    public void OnPlayerDead()
     {
-
-        
-
-        gameOverScreen.SetActive(true);
-        SoundManager.instance.PlaySound(gameOverSound);
-        timer.GetComponent<Timer>().SaveTimer(0);
+        if (!reviveQuestionUsed){
+        Time.timeScale =0.0f;
+        GameOverQuestionUI.SetActive(true);
+        reviveQuestionUsed = true; 
+        }  else GameOver();
         
     }
+
+    public void GameOver(){
+        gameOverScreen.SetActive(true);
+        SoundManager.instance.PlaySound(gameOverSound);
+        Time.timeScale= 0.0f;
+        timer.GetComponent<Timer>().SaveTimer(0);
+    }
+
+    public void OnReviveQuestionCorrect(){
+        gameOverScreen.SetActive(false);
+    }
+
 
     public void Restart()
     {

@@ -19,7 +19,7 @@ public class PlayerRespawn : MonoBehaviour
         //Check if checkpoint is available
         if (currentCheckpoint == null)
         {
-            uiManager.GameOver();
+            uiManager.OnPlayerDead();
             return;
         }
         transform.position = currentCheckpoint.position; //Move player to checkPoint
