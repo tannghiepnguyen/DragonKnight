@@ -244,8 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046e9a551677ce34e9254f63c87dd637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
-  iFrameDuration: 2
+  startingHealth: 5
+  iFrameDuration: 1
   numberOfFlashes: 2
   deathSound: {fileID: 8300000, guid: 535c9d2aeeeccaf4793ca2a404783aa5, type: 3}
   hurtSound: {fileID: 8300000, guid: f04bac79f9184fa4599be70133abb435, type: 3}

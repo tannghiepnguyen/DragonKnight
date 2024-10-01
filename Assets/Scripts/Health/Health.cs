@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
         CurrentHealth = startingHealth;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        dead = false;
     }
 
     public void TakeDamage(float _damage)
@@ -63,6 +64,11 @@ public class Health : MonoBehaviour
                     GetComponent<MeleeEnemy>().enabled = false;
                 }
 
+                if (GetComponent<EnemyDamage>() != null)
+                {
+                    GetComponent<EnemyDamage>().enabled = false;
+                }
+
                 animator.SetTrigger("die");
 
                 dead = true;
@@ -71,6 +77,11 @@ public class Health : MonoBehaviour
 
         }
 
+    }
+
+    public void InactiveObject()
+    {
+        gameObject.SetActive(false);
     }
 
     private void Update()

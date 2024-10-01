@@ -13,12 +13,24 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject timer;
 
     [SerializeField] private int currentLevel;
+    [SerializeField] private GameObject startScreen;
 
     private void Awake()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            startScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
         gameOverScreen.SetActive(false);
         pauseScreen.SetActive(false);
         winScreen.SetActive(false);
+    }
+
+    public void StartGame()
+    {
+        Time.timeScale = 1;
+        startScreen.SetActive(false);
     }
 
     public void Win()
