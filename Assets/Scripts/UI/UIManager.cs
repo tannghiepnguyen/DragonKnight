@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [Header("Win")]
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject timer;
+
+    [SerializeField] private int currentLevel;
 
     private void Awake()
     {
@@ -42,8 +45,13 @@ public class UIManager : MonoBehaviour
     #region Game Over
     public void GameOver()
     {
+
+        
+
         gameOverScreen.SetActive(true);
         SoundManager.instance.PlaySound(gameOverSound);
+        timer.GetComponent<Timer>().SaveTimer(0);
+        
     }
 
     public void Restart()
