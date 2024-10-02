@@ -8,10 +8,15 @@ public class SelectionArrow : MonoBehaviour
     [SerializeField] private AudioClip interactSound;
     [SerializeField] private RectTransform[] options;
     private int currentPosition;
+    private PlayerControl playerControl;
 
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
+        playerControl = new PlayerControl();
+        playerControl.Menu.Up_D.performed += x => ChangePosition(-1);
+        playerControl.Menu.Down_D.performed += x => ChangePosition(1);
+        playerControl.Menu.Confirm.performed += x => Interact();
     }
 
     private void Update()
